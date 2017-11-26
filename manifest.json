@@ -9,8 +9,8 @@
   },
 
   "permissions": [
-    "bookmarks",
-    "tabs"
+    "tabs",
+    "proxy"
   ],
 
   "browser_action": {

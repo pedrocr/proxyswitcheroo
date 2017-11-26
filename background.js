@@ -2,6 +2,11 @@ var currentProxy = false;
 
 function toggleProxy() {
   currentProxy = !currentProxy;
+  if (currentProxy) {
+    browser.proxy.register("pac.js");
+  } else {
+    browser.proxy.unregister();
+  }
   refresh();
 }
 
