@@ -9,6 +9,7 @@
   },
 
   "permissions": [
+    "storage",
     "tabs",
     "proxy"
   ],
@@ -16,6 +17,10 @@
   "browser_action": {
     "default_icon": "icons/globe-disabled.png",
     "default_title": "No Proxy"
+  },
+
+  "options_ui": {
+    "page": "options.html"
   },
 
   "background": {
