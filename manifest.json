@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "ProxySwitcheroo",
+  "version": "0.1",
+  "description": "Simple and Safe Proxy Switching",
+  "icons": {
+    "48": "icons/globe.png",
+    "96": "icons/globe.png"
+  },
+
+  "permissions": [
+    "bookmarks",
+    "tabs"
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/globe-disabled.png",
+    "default_title": "No Proxy"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
+
