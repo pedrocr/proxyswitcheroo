@@ -1,11 +1,36 @@
 var currentProxy = false;
+var proxyScriptURL = "pac.js";
+const noProxy = [
+  {
+    type: "direct",
+    host: "localhost",
+    port: 6535,
+  }
+];
+var someProxy = [
+  {
+    type: "socks",
+    host: "localhost",
+    port: 9999,
+    proxyDNS: true,
+  }
+];
+
+// Install the PAC file so we can control the proxying ourselves
+var register = browser.proxy.register(proxyScriptURL);
+// Log any messages from the proxy.
+register.then(browser.runtime.onMessage.addListener((message, sender) => {
+  if (sender.url === browser.extension.getURL(proxyScriptURL)) {
+    console.log(message);
+  }
+}));
 
 function toggleProxy() {
   currentProxy = !currentProxy;
   if (currentProxy) {
-    browser.proxy.register("pac.js");
+    browser.runtime.sendMessage(someProxy, {toProxyScript: true});
   } else {
-    browser.proxy.unregister();
+    browser.runtime.sendMessage(noProxy, {toProxyScript: true});
   }
   refresh();
 }
@@ -40,4 +65,3 @@ browser.browserAction.onClicked.addListener(toggleProxy);
 
 // update when the extension loads initially
 refresh();
-

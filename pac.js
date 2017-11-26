@@ -1,3 +1,15 @@
+var proxySpecification = [
+  {
+    type: "direct",
+    host: "localhost",
+    port: 6535,
+  }
+];
+
 function FindProxyForURL(url, host) {
-  return "SOCKS localhost:9999";
+  return proxySpecification;
 }
+
+browser.runtime.onMessage.addListener((message) => {
+  proxySpecification = message;
+});
