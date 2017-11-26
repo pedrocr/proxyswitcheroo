@@ -53,13 +53,7 @@ function refresh() {
 function doTabsUpdate(tabs) {
   for (let tab in tabs) {
     browser.browserAction.setIcon({
-      path: currentProxy ? {
-        19: "icons/globe.png",
-        38: "icons/globe.png"
-      } : {
-        19: "icons/globe-disabled.png",
-        38: "icons/globe-disabled.png"
-      },
+      path: currentProxy ? "icons/globe.png" : "icons/globe-disabled.png",
       tabId: tab.id
     });
 
