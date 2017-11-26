@@ -41,23 +41,14 @@ function setProxy(config) {
 }
 
 function refresh() {
-  var querying = browser.tabs.query({});
-  querying.then(doTabsUpdate);
-}
+  browser.browserAction.setIcon({
+    path: currentProxy ? "icons/globe.png" : "icons/globe-disabled.png",
+  });
 
-function doTabsUpdate(tabs) {
-  for (let tab in tabs) {
-    browser.browserAction.setIcon({
-      path: currentProxy ? "icons/globe.png" : "icons/globe-disabled.png",
-      tabId: tab.id
-    });
-
-    browser.browserAction.setTitle({
-      // Screen readers can see the title
-      title: currentProxy ? 'Proxy' : 'No Proxy',
-      tabId: tab.id
-    });
-  }
+  browser.browserAction.setTitle({
+    // Screen readers can see the title
+    title: currentProxy ? 'Proxy' : 'No Proxy',
+  });
 }
 
 browser.browserAction.onClicked.addListener(toggleProxy);
