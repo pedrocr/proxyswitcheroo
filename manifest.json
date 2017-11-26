@@ -4,8 +4,7 @@
   "version": "0.1",
   "description": "Simple and Safe Proxy Switching",
   "icons": {
-    "48": "icons/globe.png",
-    "96": "icons/globe.png"
+    "256": "icons/globe.png"
   },
 
   "permissions": [
