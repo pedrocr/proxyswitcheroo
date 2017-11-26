@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ProxySwitcheroo",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Simple and Safe Proxy Switching",
   "icons": {
     "256": "icons/globe.png"
@@ -20,6 +20,13 @@
 
   "options_ui": {
     "page": "options.html"
+  },
+
+  "applications": {
+    "gecko": {
+      "id": "{6787c9e3-c787-4e21-9449-92e301642b34}",
+      "strict_min_version": "57.0"
+    }
   },
 
   "background": {
