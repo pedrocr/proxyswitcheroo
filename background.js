@@ -30,7 +30,7 @@ function doTabsUpdate(tabs) {
 
     browser.browserAction.setTitle({
       // Screen readers can see the title
-      title: currentProxy ? 'No Proxy' : 'Proxy',
+      title: currentProxy ? 'Proxy' : 'No Proxy',
       tabId: tab.id
     });
   }
