@@ -8,10 +8,6 @@ const noProxy = [
   }
 ];
 
-function onError(error) {
-  console.log(`Error: ${error}`);
-}
-
 // Install the PAC file so we can control the proxying ourselves
 var register = browser.proxy.register(proxyScriptURL);
 // Log any messages from the proxy.
@@ -24,8 +20,7 @@ register.then(browser.runtime.onMessage.addListener((message, sender) => {
 function toggleProxy() {
   currentProxy = !currentProxy;
   if (currentProxy) {
-    var getting = browser.storage.local.get("proxySwitcherooConfig");
-    getting.then(setProxy, onError);
+    getConfig().then(setProxy, onError);
   } else {
     browser.runtime.sendMessage(noProxy, {toProxyScript: true});
   }

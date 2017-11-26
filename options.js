@@ -12,18 +12,15 @@ function saveOptions(e) {
 
 function restoreOptions() {
   function setCurrentChoice(result) {
-    document.querySelector("#type").value = result.proxySwitcherooConfig.type || "socks";
-    document.querySelector("#host").value = result.proxySwitcherooConfig.host || "localhost";
-    document.querySelector("#port").value = result.proxySwitcherooConfig.port || 9999;
-    document.querySelector("#proxydns").value = result.proxySwitcherooConfig.proxydns;
+    if (result.proxySwitcherooConfig) {
+      document.querySelector("#type").value = result.proxySwitcherooConfig.type || defType;
+      document.querySelector("#host").value = result.proxySwitcherooConfig.host || defHost;
+      document.querySelector("#port").value = result.proxySwitcherooConfig.port || defPort;
+      document.querySelector("#proxydns").checked = result.proxySwitcherooConfig.proxyDNS && true;
+    }
   }
 
-  function onError(error) {
-    console.log(`Error: ${error}`);
-  }
-
-  var getting = browser.storage.local.get("proxySwitcherooConfig");
-  getting.then(setCurrentChoice, onError);
+  getConfig().then(setCurrentChoice, onError);
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
