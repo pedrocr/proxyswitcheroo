@@ -19,6 +19,7 @@ register.then(browser.runtime.onMessage.addListener((message, sender) => {
 
 function toggleProxy() {
   currentProxy = !currentProxy;
+  setEnabled(currentProxy);
   if (currentProxy) {
     getConfig().then(setProxy, onError);
   } else {
@@ -51,7 +52,17 @@ function refresh() {
   });
 }
 
-browser.browserAction.onClicked.addListener(toggleProxy);
+function initialEnable(enabled) {
+  if (enabled.proxySwitcherooEnabled != currentProxy) {
+    toggleProxy();
+  }
+}
 
-// update when the extension loads initially
+// Make sure the icon is correct initialy
 refresh();
+
+// Enable the proxy initially if set
+getEnabled().then(initialEnable);
+
+// Respond to clicks
+browser.browserAction.onClicked.addListener(toggleProxy);

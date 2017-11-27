@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ProxySwitcheroo",
-  "version": "0.3",
+  "version": "0.4",
   "description": "Simple and Safe Proxy Switching",
   "icons": {
     "256": "icons/globe.png"
