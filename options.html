@@ -7,18 +7,24 @@
   <body>
     <form>
       <div>
-        <label>Type 
-          <select id="type">
-            <option value="socks">SOCKS5</option>
-            <option value="socks4">SOCKS4</option>
-            <option value="http">HTTP</option>
-            <option value="https">HTTPS</option>
-          </select> 
+        <label>When Off:
+          <select id="offtype">
+            <option value="none">No proxy</option>
+            <option value="autoDetect">Auto-detect proxy settings for this network</option>
+            <option value="system">Use system proxy settings</option>
+          </select>
         </label>
       </div>
-      <div><label>Host <input type="text" id="host"></label></div>
-      <div><label>Port <input type="number" id="port" min="1" max="65535"></label></div>
-      <div><label>Proxy DNS <input type="checkbox" id="proxydns"></label></div>
+      <div>
+        <label>When On:
+          <select id="ontype">
+            <option value="autoDetect">Auto-detect proxy settings for this network</option>
+            <option value="system">Use system proxy settings</option>
+            <option value="manual">Manual proxy configuration</option>
+            <option value="autoConfig">Automatic proxy configuration URL</option>
+          </select>
+        </label>
+      </div>
       <button type="submit">Save</button>
     </form>
     <script src="options.js"></script>

@@ -1,44 +1,23 @@
 var currentProxy = false;
-var proxyScriptURL = "pac.js";
-const noProxy = [
-  {
-    type: "direct",
-    host: "localhost",
-    port: 6535,
-  }
-];
-
-// Install the PAC file so we can control the proxying ourselves
-var register = browser.proxy.register(proxyScriptURL);
-// Log any messages from the proxy.
-register.then(browser.runtime.onMessage.addListener((message, sender) => {
-  if (sender.url === browser.extension.getURL(proxyScriptURL)) {
-    console.log(message);
-  }
-}));
 
 function toggleProxy() {
   currentProxy = !currentProxy;
   setEnabled(currentProxy);
-  if (currentProxy) {
-    getConfig().then(setProxy, onError);
-  } else {
-    browser.runtime.sendMessage(noProxy, {toProxyScript: true});
-  }
-  refresh();
+  getConfig().then(setProxy, onError);
 }
 
 function setProxy(config) {
-  const someProxy = [
-    {
-      type: config.proxySwitcherooConfig.type,
-      host: config.proxySwitcherooConfig.host,
-      port: config.proxySwitcherooConfig.port,
-      proxyDNS: config.proxySwitcherooConfig.proxyDNS
+  var settings = browser.proxy.settings.get({});
+  settings.then((got) => {
+    var proxySettings = got.value;
+    if (currentProxy) {
+      proxySettings.proxyType = config.proxySwitcherooConfig.onType;
+    } else {
+      proxySettings.proxyType = config.proxySwitcherooConfig.offType;
     }
-  ];
-
-  browser.runtime.sendMessage(someProxy, {toProxyScript: true});
+    var newsetting = browser.proxy.settings.set({value: proxySettings});
+    newsetting.then(refresh());
+  });
 }
 
 function refresh() {
@@ -53,15 +32,14 @@ function refresh() {
 }
 
 function initialEnable(enabled) {
-  if (enabled.proxySwitcherooEnabled != currentProxy) {
-    toggleProxy();
-  }
+  currentProxy = enabled.proxySwitcherooEnabled;
+  getConfig().then(setProxy, onError);
 }
 
 // Make sure the icon is correct initialy
 refresh();
 
-// Enable the proxy initially if set
+// Set the initial state of the proxy
 getEnabled().then(initialEnable);
 
 // Respond to clicks
