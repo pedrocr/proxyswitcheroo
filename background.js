@@ -12,11 +12,12 @@ function setProxy(config) {
     var proxySettings = got.value;
     if (currentProxy) {
       proxySettings.proxyType = config.proxySwitcherooConfig.onType;
+      var newsetting = browser.proxy.settings.set({value: proxySettings});
+      newsetting.then(refresh());
     } else {
-      proxySettings.proxyType = config.proxySwitcherooConfig.offType;
+      var clearsetting = browser.proxy.settings.clear({});
+      clearsetting.then(refresh());
     }
-    var newsetting = browser.proxy.settings.set({value: proxySettings});
-    newsetting.then(refresh());
   });
 }
 

@@ -1,6 +1,5 @@
 const defEnabled = false;
 
-const defOffType = "none";
 const defOnType = "manual";
 
 function onError(error) {
@@ -11,7 +10,6 @@ function getConfig() {
   return browser.storage.local.get({
     proxySwitcherooConfig: {
       onType:  defOnType,
-      offType: defOffType,
     }
   });
 }
