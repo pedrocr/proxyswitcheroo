@@ -10,6 +10,7 @@ function setProxy(config) {
   var settings = browser.proxy.settings.get({});
   settings.then((got) => {
     var proxySettings = got.value;
+    delete proxySettings.respectBeConservative;
     if (currentProxy) {
       proxySettings.proxyType = config.proxySwitcherooConfig.onType;
       var newsetting = browser.proxy.settings.set({value: proxySettings});
